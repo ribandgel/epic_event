@@ -1,10 +1,3 @@
-from .project import CommentSerializer, IssueSerializer, ProjectSerializer
-from .user import ContributorSerializer, UserSerializer
+from .user import ContractSerializer, EventSerializer, UserSerializer
 
-__all__ = [
-    "ProjectSerializer",
-    "IssueSerializer",
-    "CommentSerializer",
-    "UserSerializer",
-    "ContributorSerializer",
-]
+__all__ = ["UserSerializer", "ContractSerializer", "EventSerializer"]
