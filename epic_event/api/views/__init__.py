@@ -1,4 +1,3 @@
-from .project import CommentViewSet, IssueViewSet, ProjectViewSet
-from .user import ContributorViewSet, UserViewSet
+from .user import ContractViewSet, EventViewSet, UserViewSet
 
-__all__ = ("UserViewSet", "ContributorViewSet", "ProjectViewSet", "IssueViewSet", "CommentViewSet")
+__all__ = ["UserViewSet", "ContractViewSet", "EventViewSet"]

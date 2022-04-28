@@ -1,1 +1,1 @@
-PERMISSION = (("DEV", "Developer"), ("CHIEF", "Project chief"), ("PRODUCT_OWNER", "Product owner"))
+ROLE = (("Client", "Client"), ("Agent", "Agent"))

@@ -21,13 +21,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import SimpleRouter
 
-from epic_event.api.views import (
-    CommentViewSet,
-    ContributorViewSet,
-    IssueViewSet,
-    ProjectViewSet,
-    UserViewSet,
-)
+from epic_event.api.views import ContractViewSet, EventViewSet, UserViewSet
 
 exclude_names = ["token_verify", "rest_user_details", "token_refresh"]
 rest_auth_urls = [item for item in urls.urlpatterns if item.name not in exclude_names]
@@ -54,9 +48,7 @@ urlpatterns = [
 
 router = SimpleRouter()
 router.register("users", UserViewSet, basename="users")
-router.register("contributors", ContributorViewSet, basename="contributors")
-router.register("projects", ProjectViewSet, basename="projects")
-router.register("issues", IssueViewSet, basename="issues")
-router.register("comments", CommentViewSet, basename="comments")
+router.register("contracts", ContractViewSet, basename="contracts")
+router.register("events", EventViewSet, basename="events")
 
 urlpatterns += router.urls

@@ -1,4 +1,3 @@
-from .user import Contributor, User
-from .project import Comment, Issue, Project
+from .user import Contract, Event, User
 
-__all__ = ["User", "Contributor", "Project", "Issue", "Comment"]
+__all__ = ["User", "Contract", "Event"]
