@@ -1,1 +1,1 @@
-ROLE = (("Client", "Client"), ("Agent", "Agent"))
+ROLE = (("Client", "Client"), ("Gestion", "Gestion"), ("Vente", "Vente"), ("Support", "Support"))

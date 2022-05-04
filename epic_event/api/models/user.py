@@ -8,7 +8,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=20)
     mobile = models.CharField(max_length=20)
     compagny_name = models.CharField(max_length=250)
-    date_updated = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
     sales_contact = models.ForeignKey(
         "User", related_name="client_contacts", on_delete=models.SET_NULL, null=True
     )
@@ -24,7 +24,7 @@ class Contract(models.Model):
     )
     client = models.ForeignKey("User", related_name="client_contracts", on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
     amount = models.DecimalField(decimal_places=2, max_digits=8, null=True)
     payement_due = models.DateTimeField()
@@ -33,7 +33,7 @@ class Contract(models.Model):
 class Event(models.Model):
     client = models.ForeignKey("User", related_name="events", on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
     contract = models.ForeignKey("Contract", related_name="events", on_delete=models.DO_NOTHING)
     status = models.BooleanField(default=True)
     attendees = models.PositiveIntegerField(default=0)
