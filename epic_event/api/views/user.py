@@ -1,5 +1,5 @@
-from rest_framework.permissions import SAFE_METHODS
-from rest_framework.viewsets import GenericViewSet
+from django_filters import rest_framework as filters
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticated
 
 from epic_event.api.models import Contract, Event, User
 from epic_event.api.serializers import ContractSerializer, EventSerializer, UserSerializer
@@ -8,8 +8,28 @@ from .common import AtomicModelViewSet
 from .permission import ContractPermission, EventPermission, UserPermission
 
 
-class UserViewSet(GenericViewSet):
-    permission_classes = (UserPermission,)
+class UserFilter(filters.FilterSet):
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "phone",
+            "mobile",
+            "compagny_name",
+            "date_updated",
+            "role",
+        ]
+
+
+class UserViewSet(AtomicModelViewSet):
+    filterset_class = UserFilter
+    permission_classes = (
+        IsAuthenticated,
+        UserPermission,
+    )
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -22,8 +42,25 @@ class UserViewSet(GenericViewSet):
         return queryset.order_by("-id")
 
 
+class ContractFilter(filters.FilterSet):
+    class Meta:
+        model = Contract
+        fields = [
+            "client",
+            "date_created",
+            "date_updated",
+            "status",
+            "amount",
+            "payement_due",
+        ]
+
+
 class ContractViewSet(AtomicModelViewSet):
-    permission_classes = (ContractPermission,)
+    filterset_class = ContractFilter
+    permission_classes = (
+        IsAuthenticated,
+        ContractPermission,
+    )
     serializer_class = ContractSerializer
 
     def get_queryset(self):
@@ -36,8 +73,27 @@ class ContractViewSet(AtomicModelViewSet):
         return queryset.order_by("-id")
 
 
+class EventFilter(filters.FilterSet):
+    class Meta:
+        model = Event
+        fields = [
+            "client",
+            "date_created",
+            "date_updated",
+            "contract",
+            "status",
+            "attendees",
+            "date",
+            "notes",
+        ]
+
+
 class EventViewSet(AtomicModelViewSet):
-    permission_classes = (EventPermission,)
+    filterset_class = EventFilter
+    permission_classes = (
+        IsAuthenticated,
+        EventPermission,
+    )
     serializer_class = EventSerializer
 
     def get_queryset(self):

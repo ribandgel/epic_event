@@ -4,7 +4,7 @@ from rest_framework.permissions import SAFE_METHODS, BasePermission
 class UserPermission(BasePermission):
     def has_permission(self, request, view):
         if request.user:
-            if request.method in SAFE_METHODS and request.role != "Client":
+            if request.method in SAFE_METHODS and request.user.role != "Client":
                 return True
             elif request.user.role == "Gestion":
                 return True
@@ -16,7 +16,7 @@ class UserPermission(BasePermission):
 class ContractPermission(BasePermission):
     def has_permission(self, request, view):
         if request.user:
-            if request.method in SAFE_METHODS and request.role != "Client":
+            if request.method in SAFE_METHODS and request.user.role != "Client":
                 return True
             elif request.user.role == "Gestion":
                 return True
@@ -32,7 +32,7 @@ class ContractPermission(BasePermission):
 class EventPermission(BasePermission):
     def has_permission(self, request, view):
         if request.user:
-            if request.method in SAFE_METHODS and request.role != "Client":
+            if request.method in SAFE_METHODS and request.user.role != "Client":
                 return True
             elif request.user.role == "Gestion":
                 return True
