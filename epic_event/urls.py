@@ -14,20 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from dj_rest_auth import urls
-from django.contrib import admin
 from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import SimpleRouter
 
+from epic_event.api.admin import admin_site
 from epic_event.api.views import ContractViewSet, EventViewSet, UserViewSet
 
 exclude_names = ["token_verify", "rest_user_details", "token_refresh"]
 rest_auth_urls = [item for item in urls.urlpatterns if item.name not in exclude_names]
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", admin_site.urls),
     path("rest-auth/", include(rest_auth_urls)),
     path("rest-auth/signup/", include("dj_rest_auth.registration.urls")),
     path(
