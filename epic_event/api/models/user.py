@@ -37,5 +37,5 @@ class Event(models.Model):
     contract = models.ForeignKey("Contract", related_name="events", on_delete=models.DO_NOTHING)
     status = models.BooleanField(default=True)
     attendees = models.PositiveIntegerField(default=0)
-    date = models.DateTimeField()
+    date = models.DateTimeField(null=True)
     notes = models.TextField(blank=True, default="")

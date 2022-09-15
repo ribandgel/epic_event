@@ -1,8 +1,7 @@
+from django.utils import timezone
 from rest_framework import serializers
 
 from epic_event.api.models import Contract, Event, User
-
-from .common import DateUpdatedMixin
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -24,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ("id",)
 
 
-class ContractSerializer(DateUpdatedMixin, serializers.ModelSerializer):
+class ContractSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
         fields = (
@@ -38,8 +37,22 @@ class ContractSerializer(DateUpdatedMixin, serializers.ModelSerializer):
         )
         read_only_fields = ("date_created", "date_updated")
 
+    def create(self, validated_data):
+        validated_data["date_updated"] = timezone.now()
+        contract = super().create(validated_data)
+        if validated_data["status"]:
+            Event.objects.create(contract=contract, client=contract.client)
+        return contract
 
-class EventSerializer(DateUpdatedMixin, serializers.ModelSerializer):
+    def update(self, instance, validated_data):
+        validated_data["date_updated"] = timezone.now()
+        contract = super().update(instance, validated_data)
+        if validated_data["status"] and not contract.status:
+            Event.objects.create(contract=contract, client=contract.client)
+        return contract
+
+
+class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = (
@@ -56,3 +69,16 @@ class EventSerializer(DateUpdatedMixin, serializers.ModelSerializer):
             "date_created",
             "date_updated",
         )
+
+    def create(self, validated_data):
+        contract = validated_data["contract"]
+        if not contract.status:
+            raise serializers.ValidationError(
+                f"Contract {contract.id} is not signed yet, creation of event is not permited"
+            )
+        validated_data["date_updated"] = timezone.now()
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        validated_data["date_updated"] = timezone.now()
+        return super().update(instance, validated_data)
