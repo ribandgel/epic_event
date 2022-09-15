@@ -12,7 +12,7 @@ class User(AbstractUser):
     sales_contact = models.ForeignKey(
         "User", related_name="client_contacts", on_delete=models.SET_NULL, null=True
     )
-    role = models.CharField(choices=ROLE, max_length=50)
+    role = models.CharField(choices=ROLE, max_length=50, default="Client")
 
     class Meta:
         app_label = "api"
