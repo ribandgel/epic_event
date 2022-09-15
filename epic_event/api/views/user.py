@@ -12,7 +12,7 @@ class UserFilter(filters.FilterSet):
     search = filters.CharFilter(method="filter_search")
 
     def filter_search(self, queryset, name, value):
-        return queryset.objects.filter(username__icontains=value)
+        return queryset.filter(username__icontains=value)
 
     class Meta:
         model = User
@@ -51,7 +51,7 @@ class ContractFilter(filters.FilterSet):
     search = filters.CharFilter(method="filter_search")
 
     def filter_search(self, queryset, name, value):
-        return queryset.objects.filter(client__first_name__icontains=value)
+        return queryset.filter(client__first_name__icontains=value)
 
     class Meta:
         model = Contract
@@ -87,7 +87,7 @@ class EventFilter(filters.FilterSet):
     search = filters.CharFilter(method="filter_search")
 
     def filter_search(self, queryset, name, value):
-        return queryset.objects.filter(client__first_name__icontains=value)
+        return queryset.filter(client__first_name__icontains=value)
 
     class Meta:
         model = Event
