@@ -10,9 +10,10 @@
   - python manage.py runserver 8001
   ```
   
-## Download API Schema:
+## API Schema:
   - Run server with ```python manage.py runserver 8001 ```
-  - Open your browser then type http://localhost:8001/schema
+  - Open your browser then type http://localhost:8001/schema for downloading schema
+  - [Postman documentation](https://bold-meteor-322745.postman.co/workspace/My-Workspace~b71f75a5-a056-4992-8897-a98c32d909fd/collection/20082907-dd28c523-b119-4ef9-9c5b-32d13dd1efa8?action=share&creator=20082907)
 
 ## Development utilities:
   Run autoformat.sh in order to format code with blake, flake8 and isort
